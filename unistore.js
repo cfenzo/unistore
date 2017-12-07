@@ -26,6 +26,7 @@ export function createStore(state) {
 		 *  @param {Boolean} [overwrite=false]	If `true`, update will replace state instead of being merged into it
 		 */
 		setState(update, overwrite) {
+			if (typeof update === "function") update = update(state);
 			state = overwrite ? update : assign(assign({}, state), update);
 			for (let i=0; i<listeners.length; i++) listeners[i](state);
 		},
